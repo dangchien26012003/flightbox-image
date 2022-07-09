@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lightbox-image</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+
+
+        .contain {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .contain p {
+            display: block;
+            width: 100%;
+        }
+
+        .contain p,
+        .contain img {
+            padding: 5px 0;
+        }
+
+        .contain img {
+            cursor: zoom-in;
+            max-width: 660px;
+
+        }
+
+        .light-box {
+            /* margin: 29px; */
+            width: 100%;
+            position: fixed;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.66);
+            display: none;
+            top: 0
+        }
+
+        .light-box.open {
+            display: flex;
+        }
+
+        .light-box .light-box-contain {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+        }
+
+        
+        .light-box .light-box-contain img {
+            max-height: 70vh;
+        }
+
+        .light-box .light-box-contain i {
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="wapper">
+
+
+        <div class="light-box" id="light-box">
+            <div class="light-box-contain">
+                <i class="fa-solid fa-angle-left"></i>
+                    <img src="https://img.thuthuatphanmem.vn/uploads/2018/10/09/anh-dep-nhat-the-gioi-ve-thien-nhien_041753462.jpg"
+                alt="anh2">
+                
+                
+                <i class="fa-solid fa-chevron-right"></i>
+            </div>
+        </div>
+
+
+        <div class="contain">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa placeat cumque vel hic sequi, non ea sint
+                saepe, quos perspiciatis exercitationem repudiandae provident. Deleniti, autem impedit! Hic, eligendi
+                expedita. Perferendis?</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa placeat cumque vel hic sequi, non ea sint
+                saepe, quos perspiciatis exercitationem repudiandae provident. Deleniti, autem impedit! Hic, eligendi
+                expedita. Perferendis?</p>
+            <img src="https://i-vnexpress.vnecdn.net/2019/07/30/anh-thien-nhien-dep-thang-7-1564483719_680x0.jpg"
+                alt="anh1">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa placeat cumque vel hic sequi, non ea sint
+                saepe, quos perspiciatis exercitationem repudiandae provident. Deleniti, autem impedit! Hic, eligendi
+                expedita. Perferendis?</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa placeat cumque vel hic sequi, non ea sint
+                saepe, quos perspiciatis exercitationem repudiandae provident. Deleniti, autem impedit! Hic, eligendi
+                expedita. Perferendis?</p>
+            <img src="https://img.thuthuatphanmem.vn/uploads/2018/10/09/anh-dep-nhat-the-gioi-ve-thien-nhien_041753462.jpg"
+                alt="anh2">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa placeat cumque vel hic sequi, non ea sint
+                    saepe, quos perspiciatis exercitationem repudiandae provident. Deleniti, autem impedit! Hic, eligendi
+                    expedita. Perferendis?</p>
+            <img src="https://dean2020.edu.vn/wp-content/uploads/2019/03/anh-thien-nhien-dep-3.jpeg"
+            alt="anh3">
+            
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        var date = new Date()
+
+        //js thuần
+
+        // const images = document.querySelectorAll(".contain img");
+        // images.forEach((item) => item.addEventListener("click",
+        // function(event) {
+        //     console.log(event.target)
+        //     linkImage = event.target.getAttribute("src")
+        //     template = 
+        //     `
+        //     <div class="light-box">
+        //     <div class="light-box-contain">
+        //         <i class="fa-solid fa-angle-left"></i>
+        //         <div class="img" id="img-lb">
+        //             <img src="${linkImage}">
+        //         </div>
+                
+        //         <i class="fa-solid fa-chevron-right"></i>
+        //     </div>
+        //     </div>
+        //     `;
+        //     document.body.insertAdjacentHTML("beforeend", template)
+        // }))
+        
+        // document.body.addEventListener("click", function(e) {
+        //     if(e.target.matches(".light-box")){
+        //         e.target.parentNode.removeChild(e.target);
+        //     }
+        // })
+
+
+        //jquery + js thuan
+
+        $(".contain img").click(function() {
+            var link = $(this).attr('src')
+            img = this
+            $(this).parent().parent().children(".light-box").addClass("open")
+            $('.light-box-contain img').attr("src",link)
+
+            const images = document.querySelectorAll(".contain img")
+            var index = [...images].findIndex(function (item) {
+                return item.getAttribute("src") === link
+            })
+            console.log(index)
+            $('.fa-angle-left').click(function(){
+                index = index - 1
+                 if(index < 0) {
+                    index = (images.length) - 1
+                }
+                console.log(index)
+                var linkImg = images[index].getAttribute("src")
+                $(".light-box .light-box-contain img").attr("src", linkImg)
+                //bị lỗi khi thay thể ảnh bằng cả element img nên phải thay thế bằng lsrc
+                // lưu ý link ảnh không được giống nhau
+            })
+            $('.fa-chevron-right').click(function(){
+                index++
+                if(index > (images.length) - 1){
+                    index = 0
+                }
+                console.log(index)
+                var linkImg = images[index].getAttribute("src")
+                $(".light-box .light-box-contain  img").attr("src", linkImg)
+            })
+
+            // xoá class ..vẫn xoá class khi ấn vào bất cứ đâu
+
+            // $(".light-box").click(function() {
+            //     console.log(this)
+            //     $(this).removeClass('open')
+            // })
+        })
+        //xoá class ..chỉ xoá class khi không ấn vào phần tử con của nó
+        document.body.addEventListener("click", function(e) {
+            //nếu ấn vào bên ngoài light-box thì thực hiện ...
+            // lưu ý chỉ ấn vào light-box mà không phải ấn vào phần tử bên trong nó
+            if(e.target.matches(".light-box")){
+                // e.target == document.getElementById("light-box")
+                e.target.classList.remove('open')
+                // $('.light-box').removeClass('open')
+            }
+        })
+        
+    </script>
+</body>
+
+</html>
